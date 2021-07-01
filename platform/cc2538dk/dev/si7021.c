@@ -50,8 +50,8 @@ uint16_t si7021_readTemp(TEMP_READ_t read_type) {
     uint16_t temperature = (((H << 8) + L) * 175.72) / 65536 - 46.85;
     
     leds_toggle(LEDS_GREEN);
-    if (SI7021_DBG) printf("si7021:   temp %d\n", temperature);
-    //if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
+    //if (SI7021_DBG) printf("si7021:   temp %d\n", temperature);
+    if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
     //if (SI7021_DBG) printf("si7021: checksum %x\n", CS);
     return temperature;
 }
