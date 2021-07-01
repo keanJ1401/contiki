@@ -7,10 +7,10 @@ endif
 CONTIKI_TARGET_DIRS = . dev
 
 CONTIKI_TARGET_SOURCEFILES += leds.c leds-arch.c
-CONTIKI_TARGET_SOURCEFILES += contiki-main.c
+CONTIKI_TARGET_SOURCEFILES += contiki-main.c tsl256x.c
 CONTIKI_TARGET_SOURCEFILES += sensors.c smartrf-sensors.c
-CONTIKI_TARGET_SOURCEFILES += button-sensor.c als-sensor.c
-
+CONTIKI_TARGET_SOURCEFILES += button-sensor.c als-sensor.c si7021.c
+CONTIKI_TARGET_SOURCEFILES += bmpx8x.c servo.c dht22.c sht25.c
 CONTIKI_SOURCEFILES += $(CONTIKI_TARGET_SOURCEFILES)
 
 CLEAN += *.cc2538dk

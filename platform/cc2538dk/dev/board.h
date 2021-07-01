@@ -166,6 +166,21 @@
 /* Notify various examples that we have Buttons */
 #define PLATFORM_HAS_BUTTON     1
 /** @} */
+/*------I2C--------*/
+
+#define I2C_SDA_PORT GPIO_A_NUM
+#define I2C_SDA_PIN  6
+
+#define I2C_SCL_PORT GPIO_A_NUM
+#define I2C_SCL_PIN 5
+
+#define I2C_INT_PORT             GPIO_C_NUM
+#define I2C_INT_PIN              7
+#define I2C_INT_VECTOR GPIO_C_IRQn
+
+#define HW_INT_OVER_THRS                              0x01
+#define HW_INT_BELOW_THRS                             0x02
+#define HW_INT_DISABLE                                0x03
 /*---------------------------------------------------------------------------*/
 /**
  * \name ADC configuration
