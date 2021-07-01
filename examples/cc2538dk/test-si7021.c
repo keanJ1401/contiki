@@ -50,6 +50,7 @@
 #include "dev/leds.h"
 #include "dev/gpio.h"
 #include "si7021.h"
+#include "math.h"
 /*---------------------------------------------------------------------------*/
 #define SENSOR_READ_INTERVAL (3 * CLOCK_SECOND)
 /*---------------------------------------------------------------------------*/
@@ -64,12 +65,20 @@ PROCESS_THREAD(remote_bmpx8x_process, ev, data)
   PROCESS_BEGIN();
   si7021_config();
   /* And periodically poll the sensor */
+  uint16_t temp, rh;
 
   while(1) {
     etimer_set(&et, SENSOR_READ_INTERVAL);
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-		si7021_readTemp(TEMP_NOHOLD);
-		si7021_readHumd(RH_NOHOLD);
+		temp = si7021_readTemp(TEMP_NOHOLD);
+    rh = si7021_readHumd(RH_NOHOLD);
+    float temp1 = (float) temp * 1.00;
+    float hum = (float) rh * 1.00;
+    float t = (float) (temp1 * 175.75) / 65536.0 - 46.85;
+    float h = (float) (hum * 125) / 65536.0 - 6.0;
+    printf("temp: %ld.%2u, rh: %ld.%2u\n", (long)t,
+    (unsigned)((t-floor(t))*100), (long)h,
+    (unsigned)((h-floor(h))*100));
   }
   PROCESS_END();
 }

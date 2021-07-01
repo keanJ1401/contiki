@@ -47,13 +47,14 @@ uint16_t si7021_readTemp(TEMP_READ_t read_type) {
     while(i2c_burst_receive(SI7021_SLAVE_ADDRESS, receive_bufBase, 2) != I2C_MASTER_ERR_NONE);
     uint8_t H = receive_bufBase[0];
     uint8_t L = receive_bufBase[1];
-    uint16_t temperature = (((H << 8) + L) * 175.72) / 65536 - 46.85;
+    uint16_t temperature = ((((H << 8) + L) * 175.72) / 65536 - 46.85);
     
     leds_toggle(LEDS_GREEN);
-    //if (SI7021_DBG) printf("si7021:   temp %d\n", temperature);
-    if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
+    if (SI7021_DBG) printf("si7021:   temp %d\n", temperature);
+    // if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
     //if (SI7021_DBG) printf("si7021: checksum %x\n", CS);
-    return temperature;
+    // return temperature;
+    return (H << 8) + L;
 }
 
 uint16_t si7021_readHumd(HUMD_READ_t read_type) {
@@ -73,10 +74,11 @@ uint16_t si7021_readHumd(HUMD_READ_t read_type) {
   uint8_t H = receive_bufBase[0];
   uint8_t L = receive_bufBase[1];
 
-  uint16_t humidity = (((H << 8) + L) * 125) / 65536 - 6;
-  if (SI7021_DBG) printf("si7021:   humd %d\n", humidity);
-  return humidity;
-
+  uint16_t humidity = ((((H << 8) + L) * 125) / 65536 - 6);
+  // if (SI7021_DBG) printf("si7021:   humd %d\n", humidity);
+  if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
+  //return humidity;
+  return (H << 8) + L;
 
 }
 

@@ -10,7 +10,7 @@
 
 //static struct etimer periodic_timer;
 
-#define SI7021_DBG                        1
+#define SI7021_DBG                        0
 
 #define SI7021_SLAVE_ADDRESS              0x40
 
