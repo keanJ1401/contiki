@@ -63,7 +63,7 @@ PROCESS_THREAD(remote_sht25_process, ev, data)
   /* Check if the sensor voltage operation is over 2.25V */
   if(sht25.value(SHT25_VOLTAGE_ALARM)) {
     printf("Voltage is lower than recommended for the sensor operation\n");
-    PROCESS_EXIT();
+    //PROCESS_EXIT();
   }
 
   /* Configure the sensor for maximum resolution (14-bit temperature, 12-bit

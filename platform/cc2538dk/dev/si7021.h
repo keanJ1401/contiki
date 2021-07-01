@@ -53,6 +53,7 @@ typedef enum {RH_HOLD, RH_NOHOLD} HUMD_READ_t;
 
 uint16_t si7021_readTemp(TEMP_READ_t read_type);
 uint16_t si7021_readHumd(HUMD_READ_t read_type);
+void si7021_config();
 void si7021_write_userreg(uint8_t data);
 int si7021_read_userreg();
 double si7021_read_electronicID() ;

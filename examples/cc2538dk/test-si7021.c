@@ -60,8 +60,9 @@ static struct etimer et;
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(remote_bmpx8x_process, ev, data)
 {
+
   PROCESS_BEGIN();
-  
+  si7021_config();
   /* And periodically poll the sensor */
 
   while(1) {
