@@ -36,7 +36,6 @@ uint16_t si7021_readTemp(TEMP_READ_t read_type) {
     command = SI7021_TEMP_MEASURE_HOLD;
   else if(read_type == TEMP_NOHOLD){
     command = SI7021_TEMP_MEASURE_NOHOLD;
-    leds_toggle(LEDS_RED);
   }
   else {
     command = SI7021_READ_TEMP_FROM_PREV_HUMD;
@@ -49,7 +48,6 @@ uint16_t si7021_readTemp(TEMP_READ_t read_type) {
     uint8_t L = receive_bufBase[1];
     uint16_t temperature = ((((H << 8) + L) * 175.72) / 65536 - 46.85);
     
-    leds_toggle(LEDS_GREEN);
     if (SI7021_DBG) printf("si7021:   temp %d\n", temperature);
     // if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
     //if (SI7021_DBG) printf("si7021: checksum %x\n", CS);
@@ -75,8 +73,8 @@ uint16_t si7021_readHumd(HUMD_READ_t read_type) {
   uint8_t L = receive_bufBase[1];
 
   uint16_t humidity = ((((H << 8) + L) * 125) / 65536 - 6);
-  // if (SI7021_DBG) printf("si7021:   humd %d\n", humidity);
-  if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
+   if (SI7021_DBG) printf("si7021:   humd %d\n", humidity);
+  // if (SI7021_DBG) printf("si7021: h: %x, l: %x\n", H, L);
   //return humidity;
   return (H << 8) + L;
 
@@ -86,7 +84,6 @@ void si7021_write_userreg(uint8_t data){
   i2c_buffer_flush();
   uint8_t transmit_bufBase[2] = {SI7021_WRITE_USER_REG, data};
   i2c_burst_send(SI7021_SLAVE_ADDRESS, transmit_bufBase, 2);
-  leds_toggle(LEDS_GREEN);
 }
 
 int si7021_read_userreg() {
@@ -122,6 +119,5 @@ double si7021_read_electronicID() {
 void si7021_reset(){
   uint8_t transmit_bufBase[] = {SI7021_RESET};
   i2c_single_send(SI7021_SLAVE_ADDRESS, *transmit_bufBase);
-  leds_toggle(LEDS_RED);
 }
 
